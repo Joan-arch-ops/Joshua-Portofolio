@@ -1,0 +1,48 @@
+/* ===== OPENING "Data" =====
+   Dipakai bersama js/opening.js dan skrip kecil di <head> index.html.
+   Matikan total: hapus css/opening.css + js/opening.js + skrip kecil di <head> + <div id="opening"> di index.html. */
+
+/* Overlay statis di HTML pertama. Hanya tampil bila skrip <head> memasang html.opening-on (atau saat memudar: .out). */
+#opening {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #050814; /* sama dengan --bg */
+  overflow: hidden;
+  touch-action: none;
+  overscroll-behavior: contain;
+  cursor: default;
+  -webkit-user-select: none;
+  user-select: none;
+}
+html.opening-on #opening,
+#opening.out {
+  display: block;
+}
+#opening.out {
+  opacity: 0;
+  transition: opacity 0.7s ease;
+  pointer-events: none;
+}
+html.opening-on {
+  overflow: hidden;
+}
+
+/* Hero ditahan selama opening: animasi masuk bawaan (.intro > *) baru mulai saat html.opening-on dilepas,
+   yaitu bersamaan dengan overlay mulai memudar. */
+html.opening-on .intro > * {
+  animation: none;
+}
+/* Nama hanya memudar (tanpa geser 22px) supaya titik-titik opening dan teks asli tetap tepat bertumpuk saat crossfade. */
+html.opening-played .intro > .name {
+  animation-name: opening-name-in;
+  animation-duration: 0.7s;
+  animation-delay: 0s;
+  animation-timing-function: ease;
+}
+@keyframes opening-name-in {
+  from {
+    opacity: 0;
+  }
+}
