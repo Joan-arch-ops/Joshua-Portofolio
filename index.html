@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <script>
+      /* Opening "Data": kelas .opening-on dipasang SEBELUM cat pertama supaya hero tidak sempat berkedip.
+         js/opening.js yang menjalankan animasinya dan melepas kelas ini. Atur di sini: */
+      (function () {
+        var ONCE = false; // false = opening main tiap halaman dibuka/di-refresh; true = hanya sekali per sesi tab (refresh tetap memutar ulang)
+        try {
+          var d = document.documentElement,
+            u = location.search,
+            force = /[?&](opening|intro)(\b|=)/.test(u),
+            nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0],
+            reload = !!nav && nav.type === 'reload'; // refresh (F5 / Ctrl+R / tombol muat ulang)
+          try {
+            if (sessionStorage.getItem('opening-force')) {
+              sessionStorage.removeItem('opening-force'); // dipasang oleh Ctrl+K -> "Putar ulang opening"
+              force = true;
+            }
+          } catch (e) {}
+          if (!force) {
+            if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            if (/[?&](noopening|nointro)(\b|=)/.test(u)) return;
+            if (!reload && location.hash.length > 1) return; // datang lewat link #bagian: langsung ke tujuan (refresh tetap memutar opening)
+            if (ONCE && !reload && sessionStorage.getItem('opening-seen')) return;
+          }
+          if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+          d.classList.add('opening-on');
+          setTimeout(function () {
+            d.classList.remove('opening-on'); // jaring pengaman bila opening.js gagal dimuat
+          }, 22000);
+        } catch (e) {}
+      })();
+    </script>
+    <meta name="theme-color" content="#050814" />
+    <meta name="color-scheme" content="dark" />
+    <title>Joshua – Full-stack Developer</title>
+    <meta
+      name="description"
+      content="Portofolio Joshua, full-stack developer. Proyek, skill, dan kontak."
+    />
+    <meta property="og:title" content="Joshua – Full-stack Developer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/opening.css" />
+  </head>
+  <body>
+    <div id="opening" aria-hidden="true"></div>
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <defs id="defs"></defs>
+    </svg>
+    <div class="orbs" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <div id="barw"><div id="bar"></div></div>
+    <div id="glow" aria-hidden="true"></div>
+    <div class="name-glow" id="nglow" aria-hidden="true"></div>
+    <div id="peek" aria-hidden="true"></div>
+    <div
+      id="scroll-lens"
+      role="scrollbar"
+      aria-orientation="vertical"
+      aria-label="Gulir halaman"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+      tabindex="0"
+    ></div>
+
+    <header class="top"
+      ><div class="wrap glass">
+        <a class="brand" href="#top" aria-label="Joshua"
+          ><span class="bt" aria-hidden="true">Joshua</span></a
+        >
+        <div class="navr">
+          <nav class="navl" aria-label="Navigasi utama"
+            ><a href="#proyek">Proyek</a><a href="#tentang">Tentang</a
+            ><a href="#experience">Experience</a><a href="#kontak">Kontak</a></nav
+          >
+        </div> </div
+    ></header>
+
+    <main id="top">
+      <div class="hero">
+        <canvas id="net" aria-hidden="true"></canvas>
+        <div class="wrap">
+          <div class="intro">
+            <p class="scr" id="scr" aria-hidden="true" data-l="ja"
+              ><span class="scr-l">バイブコーダー</span><span class="scr-a">・</span
+              ><span class="scr-r">データアナリスト</span></p
+            >
+            <span class="sr" id="scr-sr">バイブコーダー・データアナリスト</span>
+            <h1 class="name" aria-label="Joshua"
+              ><span aria-hidden="true"
+                ><span class="l"><span class="lg">J</span></span
+                ><span class="l"><span class="lg">o</span></span
+                ><span class="l"><span class="lg">s</span></span
+                ><span class="l"><span class="lg">h</span></span
+                ><span class="l"><span class="lg">u</span></span
+                ><span class="l"><span class="lg">a</span></span></span
+              ></h1
+            >
+            <div class="cta">
+              <a class="btn mag" href="#proyek">Lihat Proyek</a>
+              <div class="socials" aria-label="Kontak dan media sosial">
+                <!-- Ubah link di href masing-masing ikon kapan saja -->
+                <a
+                  class="social"
+                  href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=joan86652@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Kirim email lewat Gmail"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3" y="5" width="18" height="14" rx="2.5" />
+                    <path d="m4 7.5 8 6 8-6" /></svg
+                ></a>
+                <a
+                  class="social"
+                  href="https://www.instagram.com/joanvfxx?stkn=cmkwMTgxcWg1cnpu&amp;utm_source=qr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+                    <circle cx="12" cy="12" r="4" />
+                    <circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none" /></svg
+                ></a>
+                <a
+                  class="social"
+                  href="https://github.com/Joan-arch-ops"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                    /></svg
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section id="proyek"
+        ><div class="wrap">
+          <div class="sec-head"
+            ><h2>Proyek pilihan</h2
+            ><p>Pilih teknologi untuk menyaring. Klik judul untuk detail.</p></div
+          >
+          <div
+            class="chips"
+            id="chips"
+            role="group"
+            aria-label="Saring proyek berdasarkan teknologi"
+          ></div>
+          <p id="count" aria-live="polite"></p>
+          <div id="list"></div> </div
+      ></section>
+
+      <section id="tentang"
+        ><div class="wrap">
+          <div class="sec-head"
+            ><h2>About Me</h2
+            ><p
+              >Saya Joshua, vibe coder dan data analyst yang juga suka berkarya di 3D, VFX, foto,
+              dan video.</p
+            ></div
+          >
+          <div class="about-grid">
+            <div class="about-left">
+              <div class="about-photo" id="aboutPhoto">
+                <span class="photo-shadow" aria-hidden="true"></span>
+                <div class="photo-frame">
+                  <!-- Foto ada di img/foto-joshua.webp (rasio 4:5); ganti file itu kapan saja. Kalau file belum ada, tampil huruf J. -->
+                  <div class="photo-slot"
+                    ><span aria-hidden="true">J</span
+                    ><img
+                      src="img/foto-joshua.webp"
+                      alt="Foto Joshua"
+                      width="720"
+                      height="900"
+                      decoding="async"
+                      style="object-position: 50% 20%"
+                  /></div>
+                </div>
+              </div>
+              <div class="about-desc" id="aboutDesc">
+                <p
+                  >Hi! I'm <strong>Joshua Nathan Eluama</strong>, a <strong>Data Analyst</strong> at
+                  <strong>PT Indomarco Prismatama (Indomaret Group)</strong> within the
+                  <strong>Merchandising Division, Strategic Analyst Department</strong>.</p
+                >
+                <p
+                  >I work <strong>end-to-end with retail data</strong>&mdash;from extracting data
+                  using <strong>Looker Studio</strong>, <strong>Tableau</strong>, and internal
+                  tools, to processing and analyzing
+                  <strong>sales, stock, store performance, and product data</strong>, turning them
+                  into <strong>actionable business insights</strong> for decision-making.</p
+                >
+              </div>
+            </div>
+            <div class="about-right">
+              <h3 class="skill-title">Skill</h3>
+              <div class="skill-list" id="skills"></div>
+            </div>
+          </div> </div
+      ></section>
+
+      <section id="experience">
+        <!-- peta pembiasan untuk lensa liquid glass; diisi JS sesuai ukuran lensa -->
+        <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+          <filter id="expLiquid" filterUnits="userSpaceOnUse" x="0" y="0" width="300" height="82" color-interpolation-filters="sRGB">
+            <feImage id="expLgImg" x="0" y="0" width="300" height="82" preserveAspectRatio="none" result="map" />
+            <feDisplacementMap in="SourceGraphic" in2="map" scale="48" xChannelSelector="R" yChannelSelector="G" result="dr" />
+            <feColorMatrix in="dr" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="cr" />
+            <feDisplacementMap in="SourceGraphic" in2="map" scale="46" xChannelSelector="R" yChannelSelector="G" result="dg" />
+            <feColorMatrix in="dg" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="cg" />
+            <feDisplacementMap in="SourceGraphic" in2="map" scale="44" xChannelSelector="R" yChannelSelector="G" result="db" />
+            <feColorMatrix in="db" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="cb" />
+            <feBlend in="cr" in2="cg" mode="screen" result="rg" />
+            <feBlend in="rg" in2="cb" mode="screen" result="sharp" />
+            <!-- blur tipis hanya di tepian yang ter-stretch: salinan blur dimasker (alpha dari #expRimImg, diisi JS) lalu ditumpuk di atas hasil tajam -->
+            <feGaussianBlur in="sharp" stdDeviation="2" result="soft" />
+            <feImage id="expRimImg" x="0" y="0" width="300" height="82" preserveAspectRatio="none" result="rim" />
+            <feComposite in="soft" in2="rim" operator="in" result="softRim" />
+            <feMerge>
+              <feMergeNode in="sharp" />
+              <feMergeNode in="softRim" />
+            </feMerge>
+          </filter>
+        </svg>
+
+        <div class="exp-track" id="exp-track">
+          <div class="exp-stage" aria-label="Experience">
+            <div class="exp-layout">
+              <h2 class="exp-title">Experience</h2>
+              <div>
+                <div class="exp-list" id="exp-list" role="tablist" aria-label="Pengalaman kerja">
+                  <i class="exp-lens" id="exp-lens" aria-hidden="true"><i class="exp-glass"></i></i>
+                  <button class="exp-tab" role="tab" id="exp-t0" aria-controls="exp-p0" aria-selected="true">
+                    <img class="exp-logo" data-logo="neraz" alt="" />
+                    <b>PT Neraz Management</b>
+                    <span>Dec 2025 – Apr 2026</span>
+                  </button>
+                  <button class="exp-tab" role="tab" id="exp-t1" aria-controls="exp-p1" aria-selected="false">
+                    <img class="exp-logo" data-logo="indomarco" alt="" />
+                    <b>PT Indomarco Prismatama</b>
+                    <span>Report &amp; Data Analyst</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="exp-detail">
+                <article class="exp-job exp-on" id="exp-p0" role="tabpanel" aria-labelledby="exp-t0">
+                  <img class="exp-logo" data-logo="neraz" alt="Logo PT Neraz Management" />
+                  <div class="exp-head">
+                    <h3 class="exp-company">PT Neraz Management</h3>
+                    <div class="exp-period">
+                      <span>Dec 2025 – Apr 2026</span>
+                      <span class="exp-badge">Part Time</span>
+                    </div>
+                  </div>
+                  <dl class="exp-meta">
+                    <div>
+                      <dt>Bagian</dt>
+                      <dd>Operator Photobooth &amp; Video 360</dd>
+                    </div>
+                  </dl>
+                  <div class="exp-block">
+                    <div class="exp-label">Skill yang didapat</div>
+                    <div class="exp-slot">
+                      <span class="exp-chip">Skill 1</span>
+                      <span class="exp-chip">Skill 2</span>
+                      <span class="exp-chip">Skill 3</span>
+                      <span class="exp-chip">+</span>
+                    </div>
+                  </div>
+                  <div class="exp-block">
+                    <div class="exp-label">Deskripsi</div>
+                    <p class="exp-desc">Deskripsi pekerjaan akan diisi nanti.</p>
+                  </div>
+                </article>
+
+                <article class="exp-job" id="exp-p1" role="tabpanel" aria-labelledby="exp-t1">
+                  <img class="exp-logo" data-logo="indomarco" alt="Logo PT Indomarco Prismatama" />
+                  <div class="exp-head">
+                    <h3 class="exp-company">
+                      PT Indomarco Prismatama
+                      <small>Head Office Indomaret</small>
+                    </h3>
+                    <div class="exp-period"><span>Periode diisi nanti</span></div>
+                  </div>
+                  <dl class="exp-meta">
+                    <div>
+                      <dt>Bagian</dt>
+                      <dd>Other Income</dd>
+                    </div>
+                    <div>
+                      <dt>Divisi</dt>
+                      <dd>Report &amp; Data Analyst</dd>
+                    </div>
+                  </dl>
+                  <div class="exp-block">
+                    <div class="exp-label">Skill yang didapat</div>
+                    <div class="exp-slot">
+                      <span class="exp-chip">Skill 1</span>
+                      <span class="exp-chip">Skill 2</span>
+                      <span class="exp-chip">Skill 3</span>
+                      <span class="exp-chip">+</span>
+                    </div>
+                  </div>
+                  <div class="exp-block">
+                    <div class="exp-label">Deskripsi</div>
+                    <p class="exp-desc">Deskripsi pekerjaan akan diisi nanti.</p>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="kontak"
+        ><div class="wrap">
+          <div class="sec-head"><h2>Mari bicara</h2></div>
+          <form id="cf" novalidate>
+            <label class="fld"
+              ><span class="fld-l">Nama</span
+              ><span class="field"
+                ><input
+                  id="cf-name"
+                  name="name"
+                  autocomplete="name"
+                  maxlength="80"
+                  placeholder="Nama Anda"
+                  required /></span
+            ></label>
+            <label class="fld"
+              ><span class="fld-l">Email</span
+              ><span class="field"
+                ><input
+                  id="cf-email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  maxlength="120"
+                  placeholder="nama@email.com"
+                  required /></span
+            ></label>
+            <label class="fld"
+              ><span class="fld-l">Pesan</span
+              ><span class="field"
+                ><textarea
+                  id="cf-message"
+                  name="message"
+                  rows="5"
+                  maxlength="2000"
+                  placeholder="Tulis pesan Anda"
+                  required></textarea></span
+            ></label>
+            <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <div class="send-row">
+              <button class="send mag" type="submit"
+                ><span class="send-glass" aria-hidden="true"></span
+                ><span class="send-label">Kirim Pesan</span></button
+              >
+            </div>
+            <p class="msg" id="msg" role="status" aria-live="polite"></p>
+          </form> </div
+      ></section>
+    </main>
+    <footer
+      ><div class="wrap"
+        >© 2026 Joshua. Dibuat dengan HTML, CSS, dan JavaScript murni.</div
+      ></footer
+    >
+
+    <!-- Dock sosial: ikon yang sama dengan di hero, melayang ke kiri layar saat halaman di-scroll (lihat main.js) -->
+    <nav class="socials dock" id="dock" aria-label="Kontak dan media sosial">
+      <a
+        class="social"
+        href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=joan86652@gmail.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Kirim email lewat Gmail"
+        ><svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="2.5" />
+          <path d="m4 7.5 8 6 8-6" /></svg
+      ></a>
+      <a
+        class="social"
+        href="https://www.instagram.com/joanvfxx?stkn=cmkwMTgxcWg1cnpu&amp;utm_source=qr"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Instagram"
+        ><svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none" /></svg
+      ></a>
+      <a
+        class="social"
+        href="https://github.com/Zyhco"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub"
+        ><svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+          /></svg
+      ></a>
+    </nav>
+
+    <dialog id="pal" aria-label="Menu cepat">
+      <input
+        id="q"
+        placeholder="Ketik perintah atau tujuan…"
+        autocomplete="off"
+        aria-label="Cari perintah"
+      />
+      <ul id="cmds" role="listbox"></ul>
+    </dialog>
+
+    <script src="js/smooth-scroll.js"></script>
+    <script src="js/opening.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
